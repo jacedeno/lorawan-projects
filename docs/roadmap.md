@@ -18,9 +18,9 @@ Honest status: what runs today, what is designed, what is planned. This file is 
 **Goal:** a device can join and its uplinks reach the platform.
 
 - [ ] WM1302 gateway assembled and provisioned (Raspberry Pi + HAT, packet forwarder)
-- [ ] ChirpStack deployed on K3s (manifests in `platform/chirpstack/`)
-- [ ] HiveMQ reachable by ChirpStack MQTT integration
-- [ ] Migration notes from the previous Docker Compose ChirpStack deployment
+- [x] ChirpStack deployed on K3s (manifests in `platform/chirpstack/`) — v4.9.0, CNPG HA Postgres, web UI live behind Traefik
+- [x] HiveMQ reachable by ChirpStack MQTT integration — connected and subscribed
+- [x] Migration notes from the previous Docker Compose ChirpStack deployment — in `platform/chirpstack/README.md`
 
 **Exit criteria:** a test device completes OTAA join; its uplink appears decoded on the MQTT broker.
 
