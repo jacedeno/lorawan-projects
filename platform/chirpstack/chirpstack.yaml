@@ -23,11 +23,21 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: POSTGRESQL_DSN
+            - name: PG_USER
               valueFrom:
                 secretKeyRef:
                   name: chirpstack-db-app
-                  key: uri
+                  key: username
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: chirpstack-db-app
+                  key: password
+            - name: PG_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: chirpstack-db-app
+                  key: host
             - name: MQTT_BROKER_HOST
               value: "192.168.68.150"
             - name: API_SECRET

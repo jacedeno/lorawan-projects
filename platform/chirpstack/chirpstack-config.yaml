@@ -14,7 +14,10 @@ data:
       level = "info"
 
     [postgresql]
-      dsn = "$POSTGRESQL_DSN"
+      # Built from CNPG secret parts. TLS is disabled for this in-cluster hop:
+      # CNPG's self-signed CA is not in ChirpStack's trust store, and the
+      # connection never leaves the cluster network.
+      dsn = "postgres://$PG_USER:$PG_PASSWORD@$PG_HOST:5432/chirpstack?sslmode=disable"
       max_open_connections = 10
 
     [redis]
