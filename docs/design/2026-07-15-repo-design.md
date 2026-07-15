@@ -61,7 +61,7 @@ Wio Tracker 1110 ──LoRaWAN US915──> WM1302 gateway (Raspberry Pi)
 
 - **Network server:** ChirpStack, self-hosted on a bare-metal K3s cluster. Postgres is provisioned through the CloudNativePG operator; Redis runs alongside. All manifests are version-controlled in `platform/chirpstack/`. A previous ChirpStack deployment ran on Docker Compose; the migration to K3s is documented as an architecture decision (prototype → production pattern).
 - **Gateway:** Seeed WM1302 concentrator module (SX1302, SPI, US915) on the official Raspberry Pi HAT. Build, OS provisioning, packet-forwarder configuration, and antenna notes documented in `platform/gateway/`.
-- **MQTT broker:** Mosquitto, deployed in-cluster alongside ChirpStack. Keeping the broker inside the platform makes this repo self-contained rather than dependent on unrelated infrastructure.
+- **MQTT broker:** HiveMQ CE (MQTT 5.0) — the same broker class already proven in prior telemetry work. Deployment target and connection details are documented in `platform/pipeline/`.
 - **Pipeline:** ChirpStack's MQTT integration publishes decoded uplinks; a small Python ingestion service (MQTT subscriber) writes them to InfluxDB 3. Geofence evaluation (Phase 3) lives in this service. The design follows proven patterns from prior ingestion work and is documented as shared infrastructure for all projects in this repo.
 - **Alerting:** geofence and telemetry alerts ride existing notification infrastructure (ntfy/Telegram).
 
@@ -119,6 +119,7 @@ Exact sensor part numbers are confirmed against hardware on hand during Phase 2 
 
 - Payload codec: unit-tested encode/decode round-trips (known byte vectors ↔ decoded values), runnable without hardware.
 - Firmware: bench validation checklist per phase (GNSS fix acquisition, sensor reads, uplink received by ChirpStack, decoded payload correctness).
+- Field validation: a vehicle-mounted mobile test station (tracker + 12 V power + antennas) stands in for a grazing animal — drive tests validate range, GNSS tracking quality, and geofence transitions in real terrain. Documented with photos in `projects/cattle-tracker/docs/`.
 - Pipeline: a replayable sample-uplink fixture (captured MQTT messages) exercises ingestion and geofence evaluation without radio hardware.
 - End-to-end acceptance per phase is defined in `docs/roadmap.md` (e.g., Phase 2 exit: a mapped fix from a walk-test appears in InfluxDB with correct temperatures).
 
