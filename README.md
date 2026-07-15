@@ -48,7 +48,7 @@ One network, many projects: every node added later reuses the same gateway, netw
 | Dashboards | Grafana | Geomap: live positions, geofences, telemetry |
 | Access | Cloudflare Tunnel | Zero inbound ports |
 
-Full detail in [docs/architecture.md](docs/architecture.md). Current status and next steps in [docs/roadmap.md](docs/roadmap.md).
+Full detail in [docs/architecture.md](docs/architecture.md). Current status and next steps in [docs/roadmap.md](docs/roadmap.md). Working notes — including what broke and how it was fixed — in the [development log](docs/devlog.md).
 
 ## Related work
 
