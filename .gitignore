@@ -1,0 +1,17 @@
+# Secrets — never commit keys, EUIs, or credentials
+*.env
+.secrets/
+secrets.*
+
+# PlatformIO / firmware build
+.pio/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS noise
+.DS_Store
+Thumbs.db
