@@ -4,7 +4,7 @@ Honest status: what runs today, what is designed, what is planned. This file is 
 
 **Lineage:** this platform is a rebuild of an earlier working prototype of the same system — device, network, and dashboard validated end to end on a Docker-based stack. The phases below track bringing it back online properly: updated software stacks, the K3s platform, and re-integrated hardware.
 
-## Phase 0 — Design & documentation ✅ (current)
+## Phase 0 — Design & documentation ✅ (complete 2026-07-15)
 
 **Goal:** the platform and flagship project fully designed and documented before hardware is wired.
 
@@ -13,7 +13,7 @@ Honest status: what runs today, what is designed, what is planned. This file is 
 - [x] Architecture diagram (SVG/PNG)
 - [x] Cattle tracker: telemetry design, payload specification, power budget, geofencing design
 
-## Phase 1 — Private LoRaWAN network 🚧 (next)
+## Phase 1 — Private LoRaWAN network 🚧 (current)
 
 **Goal:** a device can join and its uplinks reach the platform.
 
