@@ -1,0 +1,38 @@
+# ChirpStack v4 main configuration.
+# Mounted with subPath over /etc/chirpstack/chirpstack.toml so the image's
+# built-in region_*.toml files stay in place (they resolve $MQTT_BROKER_HOST
+# for the gateway MQTT backend).
+# Secrets are injected as environment variables — never stored here.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chirpstack-config
+  namespace: lorawan
+data:
+  chirpstack.toml: |
+    [logging]
+      level = "info"
+
+    [postgresql]
+      dsn = "$POSTGRESQL_DSN"
+      max_open_connections = 10
+
+    [redis]
+      servers = ["redis://chirpstack-redis:6379"]
+
+    [network]
+      net_id = "000000"
+      enabled_regions = ["us915_1"]
+
+    [api]
+      bind = "0.0.0.0:8080"
+      secret = "$API_SECRET"
+
+    [integration]
+      enabled = ["mqtt"]
+
+      [integration.mqtt]
+        server = "tcp://$MQTT_BROKER_HOST:1883"
+        username = "$MQTT_USERNAME"
+        password = "$MQTT_PASSWORD"
+        json = true

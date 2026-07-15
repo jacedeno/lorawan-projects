@@ -1,0 +1,64 @@
+# Redis — ChirpStack device sessions and deduplication state.
+# Losing this data forces devices to rejoin (OTAA), so it gets a small PVC.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: chirpstack-redis-data
+  namespace: lorawan
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chirpstack-redis
+  namespace: lorawan
+  labels:
+    app: chirpstack-redis
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: chirpstack-redis
+  template:
+    metadata:
+      labels:
+        app: chirpstack-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.4.1-alpine
+          args: ["redis-server", "--appendonly", "yes"]
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "250m", memory: "256Mi" }
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: chirpstack-redis-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chirpstack-redis
+  namespace: lorawan
+spec:
+  type: ClusterIP
+  selector:
+    app: chirpstack-redis
+  ports:
+    - port: 6379
+      targetPort: 6379

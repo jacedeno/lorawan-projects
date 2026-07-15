@@ -1,0 +1,96 @@
+# ChirpStack v4 — LoRaWAN Network Server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chirpstack
+  namespace: lorawan
+  labels:
+    app: chirpstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chirpstack
+  template:
+    metadata:
+      labels:
+        app: chirpstack
+    spec:
+      containers:
+        - name: chirpstack
+          image: chirpstack/chirpstack:4.9.0
+          args: ["-c", "/etc/chirpstack"]
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRESQL_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: chirpstack-db-app
+                  key: uri
+            - name: MQTT_BROKER_HOST
+              value: "192.168.68.150"
+            - name: API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: chirpstack-secrets
+                  key: API_SECRET
+            - name: MQTT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: chirpstack-secrets
+                  key: MQTT_USERNAME
+            - name: MQTT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: chirpstack-secrets
+                  key: MQTT_PASSWORD
+          volumeMounts:
+            - name: config
+              mountPath: /etc/chirpstack/chirpstack.toml
+              subPath: chirpstack.toml
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+          resources:
+            requests: { cpu: "100m", memory: "128Mi" }
+            limits: { cpu: "500m", memory: "512Mi" }
+      volumes:
+        - name: config
+          configMap:
+            name: chirpstack-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chirpstack
+  namespace: lorawan
+spec:
+  type: ClusterIP
+  selector:
+    app: chirpstack
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chirpstack
+  namespace: lorawan
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: chirpstack.excemca.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: chirpstack
+                port:
+                  number: 80
