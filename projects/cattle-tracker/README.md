@@ -51,4 +51,4 @@ I don't own cattle. The stand-in is a **vehicle-mounted mobile test station** �
 
 ## Status
 
-Design complete (Phase 0). Firmware and live network are Phases 1–2 — see the [roadmap](../../docs/roadmap.md).
+Design complete (Phase 0). This is a rebuild of an earlier validated prototype — the live network and firmware come back online in Phases 1–2; see the [roadmap](../../docs/roadmap.md).

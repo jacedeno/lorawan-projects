@@ -2,6 +2,8 @@
 
 Honest status: what runs today, what is designed, what is planned. This file is updated as phases complete — nothing below is claimed as done unless its exit criteria passed.
 
+**Lineage:** this platform is a rebuild of an earlier working prototype of the same system — device, network, and dashboard validated end to end on a Docker-based stack. The phases below track bringing it back online properly: updated software stacks, the K3s platform, and re-integrated hardware.
+
 ## Phase 0 — Design & documentation ✅ (current)
 
 **Goal:** the platform and flagship project fully designed and documented before hardware is wired.
