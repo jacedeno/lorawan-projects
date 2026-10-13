@@ -1,10 +1,30 @@
-# LoRaWAN Projects
-
-**Low-power, long-range tracking and sensing for assets that live far from WiFi and power outlets** — built on a private, self-hosted LoRaWAN network.
-
 ![Platform architecture](images/architecture.svg)
 
-## What this is
+<h1 align="center">LoRaWAN Projects</h1>
+<p align="center"><em>Low-power, long-range tracking and sensing for assets that live far from WiFi and power outlets.<br>Built on a private, self-hosted LoRaWAN network.</em></p>
+
+<p align="center">
+  <a href="projects/cattle-tracker/"><img src="https://img.shields.io/badge/cattle%20tracker-in%20development-2ea44f?style=flat-square" alt="Cattle tracker: in development"></a>
+  <a href="#why-lorawan"><img src="https://img.shields.io/badge/range-miles%20(rural)-1f6feb?style=flat-square" alt="Range: miles (rural)"></a>
+  <a href="#why-lorawan"><img src="https://img.shields.io/badge/battery%20life-years-1f6feb?style=flat-square" alt="Battery life: years"></a>
+  <a href="#why-lorawan"><img src="https://img.shields.io/badge/monthly%20fees-none-2ea44f?style=flat-square" alt="Monthly fees: none"></a>
+  <a href="platform/gateway/"><img src="https://img.shields.io/badge/band-US915-6e7781?style=flat-square" alt="Band: US915"></a>
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/LoRaWAN-private%20network-1c3c7a?style=flat-square" alt="LoRaWAN">
+  <img src="https://img.shields.io/badge/ChirpStack-LNS-0b6e4f?style=flat-square" alt="ChirpStack">
+  <img src="https://img.shields.io/badge/K3s-bare--metal-ffc61c?style=flat-square&logo=k3s&logoColor=white" alt="K3s bare-metal">
+  <img src="https://img.shields.io/badge/HiveMQ%20CE-MQTT%205.0-ffc000?style=flat-square&logo=mqtt&logoColor=white" alt="HiveMQ CE MQTT 5.0">
+  <img src="https://img.shields.io/badge/InfluxDB-3-22adf6?style=flat-square&logo=influxdb&logoColor=white" alt="InfluxDB 3">
+  <img src="https://img.shields.io/badge/Grafana-Geomap-f46800?style=flat-square&logo=grafana&logoColor=white" alt="Grafana Geomap">
+  <img src="https://img.shields.io/badge/Cloudflare-Tunnel-f38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Tunnel">
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/jacedeno/lorawan-projects?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/github/last-commit/jacedeno/lorawan-projects?style=flat-square" alt="Last commit">
+</p>
+
+## Overview
+
+**Low-power, long-range tracking and sensing for assets that live far from WiFi and power outlets** — built on a private, self-hosted LoRaWAN network.
 
 Some things worth monitoring don't sit in a building: grazing cattle, hikers on a trail, water tanks at the far end of a property. They have no WiFi, no power outlet, and often no cellular coverage worth paying for. This repository is a working platform for exactly those cases — small battery-powered devices that report location and sensor readings over **LoRaWAN**, a radio technology that trades bandwidth for what field assets actually need: **miles of range and years of battery life**.
 
@@ -35,7 +55,9 @@ A position fix, two temperatures, and an activity index fit in ~16 bytes. Sendin
 
 One network, many projects: every node added later reuses the same gateway, network server, and data pipeline.
 
-## The platform
+## Architecture
+
+The platform diagram is shown at the top of this page. Layer by layer:
 
 | Layer | Component | Notes |
 |---|---|---|
@@ -60,4 +82,12 @@ This platform reuses patterns from other systems I run in production:
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
+
+---
+
+<p align="center">
+  Built by <b>Jose Cedeno</b> ·
+  <a href="https://geekendzone.com">geekendzone.com</a> ·
+  <a href="https://www.linkedin.com/in/joseangelcedeno/">LinkedIn</a>
+</p>
